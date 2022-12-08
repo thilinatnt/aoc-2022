@@ -3,7 +3,8 @@ import sys
 from collections import defaultdict
 
 import requests
-import time
+
+from util import run_time
 
 
 def day(puzzle_no: str, token: object) -> None:
@@ -12,23 +13,23 @@ def day(puzzle_no: str, token: object) -> None:
         'session': token
     }
 
+    print("-------------------------\n")
     print("Day 7: No Space Left On Device")
     with requests.get(input_path, cookies=cookies) as f:
         puzzle_input: str = f.text
 
-    start_time = time.time()
     print(f"\tAnswer Part1: {resolve_part1(puzzle_input)}")
+    run_time(lambda: resolve_part1(puzzle_input))
     print(f"\tAnswer Part2: {resolve_part2(puzzle_input)}")
-    print("--- %s seconds ---\n\n" % round((time.time() - start_time), 5))
+    run_time(lambda: resolve_part2(puzzle_input))
 
 
 def resolve_part1(puzzle_input: str) -> int:
     result = 0
     folders = get_folders(puzzle_input)
 
-    for value in folders.values():
-        if value <= 100000:
-            result += value
+    for value in filter(lambda score: score <= 100000, folders.values()):
+        result += value
 
     return result
 

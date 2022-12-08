@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import sys
 import requests
-import time
+
+from util import run_time
 
 
 def day(puzzle_no: str, token: object) -> None:
@@ -10,14 +11,15 @@ def day(puzzle_no: str, token: object) -> None:
         'session': token
     }
 
+    print("-------------------------\n")
     print("Day 4: Camp Cleanup")
     with requests.get(input_path, cookies=cookies) as f:
         puzzle_input: str = f.text
 
-    start_time = time.time()
     print(f"\tAnswer Part1: {resolve_part1(puzzle_input)}")
+    run_time(lambda: resolve_part1(puzzle_input))
     print(f"\tAnswer Part2: {resolve_part2(puzzle_input)}")
-    print("--- %s seconds ---\n\n" % round((time.time() - start_time), 5))
+    run_time(lambda: resolve_part2(puzzle_input))
 
 
 def resolve_part1(puzzle_input: str) -> int:
