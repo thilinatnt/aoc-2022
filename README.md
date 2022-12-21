@@ -13,5 +13,5 @@ $ ./aoc2022.py <session_token>
 ### To run an individual puzzle:
 
 ```console
-$ ./day<X>.py <puzzle_number> <session_token>
+$ ./day<puzzle_number>.py <puzzle_number> <session_token>
 ```
