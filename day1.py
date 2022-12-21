@@ -1,27 +1,18 @@
 #!/usr/bin/env python3
 import sys
 
-import requests
-
-from util import run_time
+from util import run_time, get_puzzle_input
 
 
 def day(puzzle_no: str, token: object) -> None:
-    input_path: str = f"https://adventofcode.com/2022/day/{puzzle_no}/input"
-    cookies = {
-        'session': token
-    }
+    puzzle_input = get_puzzle_input(puzzle_no, token)
 
     print("-------------------------\n")
     print("Day 1: Calorie Counting")
-    with requests.get(input_path, cookies=cookies) as f:
-        puzzle_input: str = f.text
-
     print(f"\tAnswer Part1: {resolve_part1(puzzle_input)}")
     run_time(lambda: resolve_part1(puzzle_input))
     print(f"\tAnswer Part2: {resolve_part2(puzzle_input)}")
     run_time(lambda: resolve_part2(puzzle_input))
-
 
 
 def resolve_part1(puzzle_input: str) -> int:

@@ -1,21 +1,14 @@
 #!/usr/bin/env python3
 import sys
 
-import requests
-
-from util import run_time
+from util import get_puzzle_input
 
 
 def day(puzzle_no: str, token: object) -> None:
-    input_path: str = f"https://adventofcode.com/2022/day/{puzzle_no}/input"
-    cookies = {
-        'session': token
-    }
+    puzzle_input = get_puzzle_input(puzzle_no, token)
 
     print("-------------------------\n")
     print("Day 12: Hill Climbing Algorithm")
-    with requests.get(input_path, cookies=cookies) as f:
-        puzzle_input: str = f.text
 
     print(f"\tAnswer Part1: {resolve_part1(puzzle_input)}")
     # run_time(lambda: resolve_part1(puzzle_input))
@@ -24,9 +17,22 @@ def day(puzzle_no: str, token: object) -> None:
 
 
 def resolve_part1(puzzle_input: str) -> int:
+    grid = []
+    start = None
+    target = None
+    for line in puzzle_input.splitlines():
+        row = list(line)
+        grid.append(row)
 
-    # for line in puzzle_input.splitlines():
+        if 'S' in row:
+            start = [row.index('S'), len(grid) - 1]
+        if 'E' in row:
+            target = [row.index('E'), len(grid) - 1]
 
+    print('\n'.join([''.join(['{:2}'.format(item) for item in row])
+                     for row in grid]))
+    print(f"\tStart: {start}")
+    print(f"\tTarget: {target}")
     return 5
 
 
